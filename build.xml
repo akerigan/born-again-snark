@@ -74,8 +74,8 @@
     <mkdir dir="${classes.dir}"/>
     <mkdir dir="${javadoc.home}"/>
     <copy todir="${classes.dir}">
-      <fileset dir="src/java" includes="**/*.properties"/>
-      <fileset dir="src/java" includes="**/*.tmpl"/>
+      <fileset dir="src/main/java" includes="**/*.properties"/>
+      <fileset dir="src/main/java" includes="**/*.tmpl"/>
     </copy>
     <copy todir="${deploy.dir}/lib">
       <fileset dir="lib" includes="**/*.jar"/>
