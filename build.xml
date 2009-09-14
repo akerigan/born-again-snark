@@ -64,7 +64,7 @@
         <isset property="gnome.present"/>
       </and>
     </condition>
-    <echo level="info" message="org.snark.gui: ${build.interface.gtk}"/>
+    <echo level="info" message="org.torrent.snarknt.snark.gui: ${build.interface.gtk}"/>
   </target>
 
   <!-- prepares the application directories -->
@@ -150,7 +150,7 @@
       <arg line="-classpath" />
       <arg pathref="classpath" />
       <arg line="-o snark" />
-      <arg line="--main=org.snark.cmdApplication" />
+      <arg line="--main=org.torrent.snarknt.snark.cmdApplication" />
       <arg line="snark.jar"/>
     </exec>
   </target>

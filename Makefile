@@ -11,7 +11,7 @@ JAVAC_FLAGS=-g -O -source 1.5
 JAR=fastjar
 
 PROGRAM=snark
-MAINCLASS=org.snark.Snark
+MAINCLASS=org.torrent.snark.Snark
 
 SOURCES= \
 org/klomp/snark/BitField.java \
@@ -45,7 +45,7 @@ org/klomp/snark/bencode/BDecoder.java \
 org/klomp/snark/bencode/InvalidBEncodingException.java
 
 STATIC_SOURCES=$(SOURCES) org/klomp/snark/StaticSnark.java
-STATIC_MAINCLASS=org.snark.StaticSnark
+STATIC_MAINCLASS=org.torrent.snark.StaticSnark
 
 GNOME_SOURCES=$(SOURCES) org/klomp/snark/SnarkGnome.java \
 	org/klomp/snark/GnomeInfoWindow.java \
