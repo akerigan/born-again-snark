@@ -1,5 +1,5 @@
 /*
- * GnomePeerList - Window that show the peers that are currently connected.
+ * SnarkPeerListFrame - Window that show the peers that are currently connected.
  * 
  * Copyright (C) 2003 Mark J. Wielaard
  * 
@@ -19,27 +19,12 @@
  * Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-package org.klomp.snark.gtk;
+package org.klomp.snark.gui;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-
-import org.gnu.gtk.CellRenderer;
-import org.gnu.gtk.CellRendererText;
-import org.gnu.gtk.CellRendererToggle;
-import org.gnu.gtk.DataColumn;
-import org.gnu.gtk.DataColumnBoolean;
-import org.gnu.gtk.DataColumnString;
-import org.gnu.gtk.ListStore;
-import org.gnu.gtk.TreeIter;
-import org.gnu.gtk.TreeView;
-import org.gnu.gtk.TreeViewColumn;
-import org.gnu.gtk.Window;
-import org.gnu.gtk.WindowType;
-import org.gnu.gtk.event.LifeCycleEvent;
-import org.gnu.gtk.event.LifeCycleListener;
 
 import org.klomp.snark.Peer;
 import org.klomp.snark.PeerCoordinator;
@@ -49,7 +34,27 @@ import org.klomp.snark.Snark;
 /**
  * Window that show the currently connected peers.
  */
-class GnomePeerList implements LifeCycleListener
+class SnarkPeerListFrame {
+
+}
+
+/**
+ import org.gnu.gtk.CellRenderer;
+ import org.gnu.gtk.CellRendererText;
+ import org.gnu.gtk.CellRendererToggle;
+ import org.gnu.gtk.DataColumn;
+ import org.gnu.gtk.DataColumnBoolean;
+ import org.gnu.gtk.DataColumnString;
+ import org.gnu.gtk.ListStore;
+ import org.gnu.gtk.TreeIter;
+ import org.gnu.gtk.TreeView;
+ import org.gnu.gtk.TreeViewColumn;
+ import org.gnu.gtk.Window;
+ import org.gnu.gtk.WindowType;
+ import org.gnu.gtk.event.LifeCycleEvent;
+ import org.gnu.gtk.event.LifeCycleListener;
+
+class SnarkPeerListFrame implements LifeCycleListener
 {
     protected Snark _snark;
 
@@ -71,7 +76,7 @@ class GnomePeerList implements LifeCycleListener
 
     private DataColumnBoolean chokedBlock;
 
-    public GnomePeerList (Snark snark)
+    public SnarkPeerListFrame(Snark snark)
     {
         _snark = snark;
     }
@@ -183,7 +188,7 @@ class GnomePeerList implements LifeCycleListener
         // Is it time to update?
         update_counter++;
         if (window == null
-            || update_counter % (UPDATE_SEC * SnarkGnome.UPDATE_TIMER) != 0) {
+            || update_counter % (UPDATE_SEC * SnarkGui.UPDATE_TIMER) != 0) {
             return;
         }
 
@@ -283,3 +288,4 @@ class GnomePeerList implements LifeCycleListener
         return false;
     }
 }
+*/

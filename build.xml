@@ -64,7 +64,7 @@
         <isset property="gnome.present"/>
       </and>
     </condition>
-    <echo level="info" message="org.klomp.snark.gtk: ${build.interface.gtk}"/>
+    <echo level="info" message="org.klomp.snark.gui: ${build.interface.gtk}"/>
   </target>
 
   <!-- prepares the application directories -->

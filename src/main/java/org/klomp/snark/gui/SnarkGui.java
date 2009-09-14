@@ -1,5 +1,5 @@
 /*
- * SnarkGnome - Main snark program startup class which uses a Gnome UI.
+ * SnarkGui - Main snark program startup class which uses a Gnome UI.
  * Copyright (C) 2003 Mark J. Wielaard
  * 
  * This file is part of Snark.
@@ -18,10 +18,31 @@
  * Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-package org.klomp.snark.gtk;
+package org.klomp.snark.gui;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.klomp.snark.CoordinatorListener;
+import org.klomp.snark.Peer;
+import org.klomp.snark.PeerCoordinator;
+import org.klomp.snark.Snark;
+import org.klomp.snark.SnarkShutdown;
+import org.klomp.snark.ShutdownListener;
+import org.klomp.snark.Storage;
+import org.klomp.snark.StorageListener;
+import org.klomp.snark.cmd.SnarkApplication;
+
+/**
+ * Main Snark program startup class that uses a Gnome UI.
+ * 
+ * @author Mark Wielaard (mark@klomp.org)
+ */
+public class SnarkGui {
+
+}
+
+/*
 
 import org.gnu.glib.Fireable;
 import org.gnu.glib.Timer;
@@ -45,25 +66,9 @@ import org.gnu.gtk.event.LifeCycleListener;
 import org.gnu.gtk.event.MenuItemEvent;
 import org.gnu.gtk.event.MenuItemListener;
 
-import org.klomp.snark.CoordinatorListener;
-import org.klomp.snark.Peer;
-import org.klomp.snark.PeerCoordinator;
-import org.klomp.snark.Snark;
-import org.klomp.snark.SnarkShutdown;
-import org.klomp.snark.ShutdownListener;
-import org.klomp.snark.Storage;
-import org.klomp.snark.StorageListener;
-import org.klomp.snark.cmd.SnarkApplication;
 
-/**
- * Main Snark program startup class that uses a Gnome UI.
- * 
- * @author Mark Wielaard (mark@klomp.org)
- */
-public class SnarkGnome implements Runnable, StorageListener,
-    CoordinatorListener, ShutdownListener, Fireable, LifeCycleListener,
-    MenuItemListener
-{
+public class SnarkGui implements Runnable, StorageListener,
+    CoordinatorListener, ShutdownListener{
     private static final String VERSION = "0.6";
 
     private static final String AUTHOR1 = "Mark J. Wielaard <mark@klomp.org>";
@@ -109,12 +114,11 @@ public class SnarkGnome implements Runnable, StorageListener,
 
     private final Label piecesCollected;
 
-    private final GnomeInfoWindow propertiesWindow;
+    private final SnarkInfoFrame propertiesFrame;
 
-    /**
-     * Creates the whole SnarkGnome application.
-     */
-    private SnarkGnome ()
+//     Creates the whole SnarkGnome application.
+
+    private SnarkGui()
     {
         // Main window
         app = new App("snark", "Snark");
@@ -218,7 +222,7 @@ public class SnarkGnome implements Runnable, StorageListener,
         app.showAll();
 
         // Create, but don't show properties window.
-        propertiesWindow = new GnomeInfoWindow(_snark);
+        propertiesFrame = new SnarkInfoFrame(_snark);
 
         // HACK - Only after we show everything can we get the widgets.
         propertiesItem = propertiesMenuItem.getWidget();
@@ -233,14 +237,12 @@ public class SnarkGnome implements Runnable, StorageListener,
     // See lifeCycleEvent() and fire().
     private boolean shutdown_now = false;
 
-    /**
-     * Handles Menu events (quit, about, ...).
-     */
+     // Handles Menu events (quit, about, ...).
     public void menuItemEvent (MenuItemEvent event)
     {
         Object source = event.getSource();
         if (source.equals(propertiesItem)) {
-            propertiesWindow.show();
+            propertiesFrame.show();
         } else if (source.equals(quitItem)) {
             quit();
         } else if (source.equals(aboutItem)) {
@@ -251,9 +253,7 @@ public class SnarkGnome implements Runnable, StorageListener,
         }
     }
 
-    /**
-     * Called when the application should quit.
-     */
+     // Called when the application should quit.
     private void quit ()
     {
         activity = SHUTDOWN;
@@ -272,9 +272,8 @@ public class SnarkGnome implements Runnable, StorageListener,
         System.exit(0);
     }
 
-    /**
-     * Called when we have to show info about the program.
-     */
+     // Called when we have to show info about the program.
+
     private void about ()
     {
         String[] authors = { AUTHOR1, AUTHOR2 };
@@ -297,16 +296,14 @@ public class SnarkGnome implements Runnable, StorageListener,
         Runtime.getRuntime().addShutdownHook(snarkhook);
     }
 
-    /**
-     * Starts snark with a Gnome UI.
-     */
+     // Starts snark with a Gnome UI.
     public static void main (String[] args)
     {
         // Initialize Gnome libraries and handle common arguments.
         Program.initGnomeUI("Snark", VERSION, args);
 
         // Setup the main application window
-        SnarkGnome snarkgnome = new SnarkGnome();
+        SnarkGui snarkgnome = new SnarkGui();
         snarkgnome.args = args;
 
         // Initialize the Snark in a separate thread
@@ -374,10 +371,8 @@ public class SnarkGnome implements Runnable, StorageListener,
         activity = getActivity();
     }
 
-    /**
-     * Returns the current activity by checking the storage and peer
-     * coordinator.
-     */
+     // Returns the current activity by checking the storage and peer
+     // coordinator.
     private String getActivity ()
     {
         String activity;
@@ -407,11 +402,10 @@ public class SnarkGnome implements Runnable, StorageListener,
         return activity;
     }
 
-    /**
-     * Called by fire() to check if there was any progress recently. Returns
-     * true when progress() was called since the last call to madeProgress().
-     * Synchronized to make sure we don't miss any progress events.
-     */
+     // Called by fire() to check if there was any progress recently. Returns
+     // true when progress() was called since the last call to madeProgress().
+     // Synchronized to make sure we don't miss any progress events.
+
     private synchronized boolean madeProgress ()
     {
         boolean result = progress;
@@ -447,10 +441,8 @@ public class SnarkGnome implements Runnable, StorageListener,
 
     private String lastActivity = null;
 
-    /**
-     * Sets upload and download rates texts. Used for everything gtk+/gnome
-     * since that seems the most thread save way.
-     */
+     // Sets upload and download rates texts. Used for everything gtk+/gnome
+     // since that seems the most thread save way.
     public boolean fire ()
     {
         // XXX - Little bit of a hack, when the close box has been pressed
@@ -545,7 +537,7 @@ public class SnarkGnome implements Runnable, StorageListener,
             piecesCollected.setText(got + " of " + pieces);
 
             if (_snark.coordinator != null) {
-                propertiesWindow.update(_snark.coordinator.getPeers());
+                propertiesFrame.update(_snark.coordinator.getPeers());
             }
         }
 
@@ -568,6 +560,7 @@ public class SnarkGnome implements Runnable, StorageListener,
 
     protected Snark _snark;
 
-    /** The Java logger used to process our log events. */
-    protected static final Logger log = Logger.getLogger("org.klomp.snark.gtk");
+    // The Java logger used to process our log events.
+    protected static final Logger log = Logger.getLogger("org.klomp.snark.gui");
 }
+*/
