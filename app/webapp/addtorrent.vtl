@@ -1,0 +1,44 @@
+<html>
+<head>
+    <title>Add new torrent</title>
+</head>
+<body>
+<form action="addtorrent" method="post" enctype="multipart/form-data">
+    Torrent file name:
+    <input type="file" name="torrent"/>
+    <input type="submit" value="upload"/>
+</form>
+#if ($metaInfo)
+<table>
+    <thead>
+    <tr>
+        <td>Name</td>
+        <td>Value</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Announce:</td>
+        <td>$metaInfo.Announce</td>
+    </tr>
+    <tr>
+        <td>File name:</td>
+        <td>$metaInfo.Name</td>
+    </tr>
+    <tr>
+        <td>Total length:</td>
+        <td>$metaInfo.TotalLength</td>
+    </tr>
+    <tr>
+        <td>Hex info hash:</td>
+        <td>$metaInfo.HexInfoHash</td>
+    </tr>
+    <tr>
+        <td>Pieces count:</td>
+        <td>$metaInfo.Pieces</td>
+    </tr>
+    </tbody>
+</table>
+#end
+</body>
+</html>

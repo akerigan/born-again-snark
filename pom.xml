@@ -84,11 +84,11 @@
         <!-- Embedded HTTP server -->
 
         <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>catalina</artifactId>
-            <version>6.0.20</version>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>example-jetty-embedded</artifactId>
+            <version>7.0.0.RC5</version>
         </dependency>
-
+        
     </dependencies>
     <build>
         <plugins>

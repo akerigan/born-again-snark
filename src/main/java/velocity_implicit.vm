@@ -1,0 +1,2 @@
+#* @implicitly included *#
+#* @vtlvariable name="metaInfo" type="org.torrent.snark.MetaInfo" *#
