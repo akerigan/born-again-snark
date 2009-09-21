@@ -84,7 +84,7 @@ public class BDecoder
      * <code>InputStream</code> yet.
      */
     public BDecoder (InputStream in)
-    {
+     {
         this.in = in;
         // XXX - Used for ugly hack.
         try {
