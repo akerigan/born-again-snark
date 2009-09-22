@@ -1,6 +1,7 @@
 package org.torrent.snark.rework;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.util.Stack;
 
 /**
@@ -26,7 +27,7 @@ public class BEncodedStreamReader {
     private Stack<Integer> events = new Stack<Integer>();
     private ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
 
-    private Integer parsedInteger;
+    private BigDecimal parsedNumber;
     private byte[] parsedByteArray;
 
     public BEncodedStreamReader(InputStream in) {
@@ -36,8 +37,8 @@ public class BEncodedStreamReader {
         this.in = in;
     }
 
-    public Integer getInteger() {
-        return parsedInteger;
+    public BigDecimal getNumber() {
+        return parsedNumber;
     }
 
     public byte[] getByteArray() {
@@ -81,7 +82,7 @@ public class BEncodedStreamReader {
             }
         } else if (current == 'i') {
             current = -1;
-            parsedInteger = readInteger('e');
+            parsedNumber = readNumber('e');
             return INTEGER;
         } else if (current >= '0' && current <= '9') {
             parsedByteArray = readBytesArray();
@@ -92,12 +93,12 @@ public class BEncodedStreamReader {
     }
 
     private byte[] readBytesArray() throws IOException {
-        int count = readInteger(':');
-        return readCount(count);
+        BigDecimal count = readNumber(':');
+        return readCount(count.intValue());
     }
 
-    private int readInteger(char end) throws IOException {
-        int result = Integer.parseInt(new String(readUntil(end)));
+    private BigDecimal readNumber(char end) throws IOException {
+        BigDecimal result = new BigDecimal(new String(readUntil(end)));
         current = in.read();
         return result;
     }

@@ -8,6 +8,11 @@
     <input type="file" name="torrent"/>
     <input type="submit" value="upload"/>
 </form>
+#if ($entry)
+<pre>
+$entry
+</pre>
+#end
 #if ($metaInfo)
 <table>
     <thead>

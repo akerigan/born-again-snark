@@ -1,10 +1,10 @@
-import org.junit.Test;
 import org.torrent.snark.rework.BEncodedStreamReader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 import junit.framework.TestCase;
 
@@ -27,7 +27,7 @@ public class BEncodedStreamReaderTest extends TestCase {
         BEncodedStreamReader reader = getReader("i875e");
         assertTrue(reader.hasNext());
         assertEquals(BEncodedStreamReader.INTEGER, reader.next());
-        assertEquals(new Integer(875), reader.getInteger());
+        assertEquals(new BigDecimal(875), reader.getNumber());
         assertFalse(reader.hasNext());
     }
 
@@ -46,11 +46,11 @@ public class BEncodedStreamReaderTest extends TestCase {
         assertTrue(reader.hasNext());
         assertEquals(BEncodedStreamReader.LIST_START, reader.next());
         assertEquals(BEncodedStreamReader.INTEGER, reader.next());
-        assertEquals(new Integer(54), reader.getInteger());
+        assertEquals(new BigDecimal(54), reader.getNumber());
         assertEquals(BEncodedStreamReader.BYTE_ARRAY, reader.next());
         assertEquals(new String(reader.getByteArray()), "test");
         assertEquals(BEncodedStreamReader.INTEGER, reader.next());
-        assertEquals(new Integer(55), reader.getInteger());
+        assertEquals(new BigDecimal(55), reader.getNumber());
         assertEquals(BEncodedStreamReader.LIST_END, reader.next());
         assertFalse(reader.hasNext());
     }
@@ -67,7 +67,7 @@ public class BEncodedStreamReaderTest extends TestCase {
         assertEquals(BEncodedStreamReader.BYTE_ARRAY, reader.next());
         assertEquals(new String(reader.getByteArray()), "age");
         assertEquals(BEncodedStreamReader.INTEGER, reader.next());
-        assertEquals(new Integer(34), reader.getInteger());
+        assertEquals(new BigDecimal(34), reader.getNumber());
         assertEquals(BEncodedStreamReader.DICTIONARY_END, reader.next());
         assertFalse(reader.hasNext());
     }
@@ -88,7 +88,7 @@ public class BEncodedStreamReaderTest extends TestCase {
         assertEquals(new String(reader.getByteArray()), "Age");
 
         assertEquals(BEncodedStreamReader.INTEGER, reader.next());
-        assertEquals(new Integer(22), reader.getInteger());
+        assertEquals(new BigDecimal(22), reader.getNumber());
 
         assertEquals(BEncodedStreamReader.BYTE_ARRAY, reader.next());
         assertEquals(new String(reader.getByteArray()), "Relatives");
@@ -127,7 +127,7 @@ public class BEncodedStreamReaderTest extends TestCase {
         assertEquals(new String(reader.getByteArray()), "Postcode");
 
         assertEquals(BEncodedStreamReader.INTEGER, reader.next());
-        assertEquals(new Integer(5425), reader.getInteger());
+        assertEquals(new BigDecimal(5425), reader.getNumber());
 
         assertEquals(BEncodedStreamReader.DICTIONARY_END, reader.next());
         assertEquals(BEncodedStreamReader.DICTIONARY_END, reader.next());

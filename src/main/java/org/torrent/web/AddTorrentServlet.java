@@ -6,6 +6,7 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.torrent.snark.MetaInfo;
+import org.torrent.snark.rework.BEntry;
 import org.torrent.snark.bencode.BDecoder;
 
 import javax.servlet.ServletException;
@@ -45,6 +46,7 @@ public class AddTorrentServlet extends HttpServlet {
             if (torrentFile != null) {
                 MetaInfo metaInfo = new MetaInfo(new BDecoder(new FileInputStream(torrentFile)));
                 context.put("metaInfo", metaInfo);
+                context.put("entry", BEntry.readEntry(new FileInputStream(torrentFile)));                
             }
             Template template = velocityEngine.getTemplate("addtorrent.vtl");
             template.merge(context, response.getWriter());
