@@ -132,7 +132,7 @@ public class SnarkGui implements Runnable, StorageListener,
         app.installMenuHints(appMenus);
 
         // Add some properties to the window
-        // Torrent that we are sharing
+        // TorrentInfo that we are sharing
         HBox torrentBox = new HBox(false, 6);
         Label torrent = new Label("Sharing:");
         torrent.setJustification(Justification.RIGHT);

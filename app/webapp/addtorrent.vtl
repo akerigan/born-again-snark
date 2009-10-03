@@ -13,35 +13,100 @@
 $entry
 </pre>
 #end
-#if ($metaInfo)
+#if ($torrentInfo)
 <table>
-    <thead>
-    <tr>
-        <td>Name</td>
-        <td>Value</td>
-    </tr>
-    </thead>
     <tbody>
+    #foreach($announce in $torrentInfo.Announces)
     <tr>
         <td>Announce:</td>
-        <td>$metaInfo.Announce</td>
+        <td>$announce</td>
     </tr>
+    #end
+    #if($torrentInfo.Properties)
+    #foreach($key in $torrentInfo.Properties)
+    <tr>
+        <td>${key}:</td>
+        <td>$torrentInfo.Properties.get($key)</td>
+    </tr>
+    #end
+    #end
+    #if($torrentInfo.Comment)
+    <tr>
+        <td>Comment:</td>
+        <td>$torrentInfo.Comment</td>
+    </tr>
+    #end
+    #if($torrentInfo.CreatedBy)
+    <tr>
+        <td>Created by:</td>
+        <td>$torrentInfo.CreatedBy</td>
+    </tr>
+    #end
+    #if($torrentInfo.CreationDate)
+    <tr>
+        <td>Creation date:</td>
+        <td>$dateTool.format("default_date", $torrentInfo.CreationDate)</td>
+    </tr>
+    #end
+    <tr>
+        <td>Obey privacy:</td>
+        <td>$torrentInfo.ObeyPrivacy</td>
+    </tr>
+    #if($torrentInfo.Publisher)
+    <tr>
+        <td>Publisher:</td>
+        <td>$torrentInfo.Publisher</td>
+    </tr>
+    #end
+    #if($torrentInfo.PublisherUrl)
+    <tr>
+        <td>Publisher url:</td>
+        <td>$torrentInfo.PublisherUrl</td>
+    </tr>
+    #end
+    <tr>
+        <td>Info hash:</td>
+        <td>$torrentInfo.InfoHash</td>
+    </tr>
+    <tr>
+        <td>Piece length:</td>
+        <td>$torrentInfo.PieceLength</td>
+    </tr>
+    #set($count = 1)
+    #foreach($file in $torrentInfo.files)
+    <tr>
+        <td colspan="2">File #$count</td>
+    </tr>
+    #if($file.Directory)
+    <tr>
+        <td>Directory:</td>
+        <td>$file.Directory</td>
+    </tr>
+    #end
     <tr>
         <td>File name:</td>
-        <td>$metaInfo.Name</td>
+        <td>$file.FileName</td>
     </tr>
     <tr>
-        <td>Total length:</td>
-        <td>$metaInfo.TotalLength</td>
+        <td>File size:</td>
+        <td>$file.Size</td>
     </tr>
+    #if($file.Md5Hash)
     <tr>
-        <td>Hex info hash:</td>
-        <td>$metaInfo.HexInfoHash</td>
+        <td>MD5 hash:</td>
+        <td>$file.Md5Hash</td>
     </tr>
+    #end
+    #set($count = $count + 1)
+    #end
+    #set($count = 1)
+    #foreach($hash in $torrentInfo.piecesHashes)
     <tr>
-        <td>Pieces count:</td>
-        <td>$metaInfo.Pieces</td>
+        <td>Piece #$count hash:</td>
+        <td>$hash</td>
     </tr>
+    #set($count = $count + 1)
+    #end
     </tbody>
 </table>
 #end

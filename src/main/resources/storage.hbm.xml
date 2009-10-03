@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="org.torrent.basnark.storage.domain.TorrentInfo" table="torrents">
+        <id name="id" column="torrent_id">
+            <generator class="native"/>
+        </id>
+        <property name="name" type="string" column="name"/>
+        <property name="title" type="string" column="title"/>
+    </class>
+
+    <class name="org.torrent.basnark.storage.domain.FileInfo" table="files">
+        <id name="id" column="file_id" access="field" type="integer">
+            <generator class="native"/>
+        </id>
+        <property name="baseDirectory" column="base_dir" access="field" type="string"/>
+        <property name="directory" column="dir" access="field" type="string"/>
+        <property name="fileName" column="file" access="field" type="string"/>
+
+        <property name="size" column="size" access="field" type="long"/>
+        <property name="md5Hash" column="md5" access="field" type="string" length="16"/>
+
+    </class>
+
+
+</hibernate-mapping>

@@ -1,4 +1,4 @@
-import org.torrent.snark.rework.BEncodedStreamReader;
+import org.torrent.basnark.bencode.BEncodedStreamReader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

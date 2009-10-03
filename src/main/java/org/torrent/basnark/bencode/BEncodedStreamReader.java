@@ -1,4 +1,4 @@
-package org.torrent.snark.rework;
+package org.torrent.basnark.bencode;
 
 import java.io.*;
 import java.math.BigDecimal;

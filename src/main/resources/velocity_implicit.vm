@@ -1,0 +1,5 @@
+#* @implicitly included *#
+#* @vtlvariable name="dateTool" type="org.apache.velocity.tools.generic.DateTool" *#
+#* @vtlvariable name="torrentInfo" type="org.torrent.basnark.storage.domain.TorrentInfo" *#
+#* @vtlvariable name="entry" type="org.torrent.basnark.bencode.BEntry" *#
+#* @vtlvariable name="metaInfo" type="org.torrent.snark.MetaInfo" *#
