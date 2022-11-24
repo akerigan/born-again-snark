@@ -120,7 +120,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>3.3.2.GA</version>
+            <version>5.3.20.Final</version>
         </dependency>
 
         <!-- Because this is a web app, we also have a dependency on the servlet api. -->
